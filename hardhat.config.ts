@@ -18,9 +18,9 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: {
     qday: {
-      url: "http://192.168.1.235:8560",
+      url: "http://159.138.82.123:8123",
       accounts: [process.env.DA_PRIVATE_KEY || ""],
-      chainId: 51888,
+      chainId: 1001,
     },
 
   },

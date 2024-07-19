@@ -40,7 +40,7 @@ task('deploy:wqday', 'Creates deployment wqday')
   });
 
 /*
-npx hardhat deploy:no_governance --weth9 0x5FbDB2315678afecb367f032d93F642f64180aa3 --network qday
+npx hardhat deploy:no_governance --weth9 0xC99d921E16d5bB784BBD529866c991F0f3ec97C8 --network qday
 */  
 task(
   'deploy:no_governance',
