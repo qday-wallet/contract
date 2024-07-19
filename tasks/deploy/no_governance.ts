@@ -24,6 +24,24 @@ async function logVerify(
   return contract.deployTransaction.wait().then();
 }
 
+/*
+npx hardhat deploy:wqday --name "wqday" --symbol "wqday" --network qday
+*/
+task('deploy:wqday', 'Creates deployment wqday')
+  .addParam('name', 'Name of Wrapped Qday')
+  .addParam('symbol', 'Symbol of Wrapped Qday')
+  .setAction(async function ({ name, symbol}: { name: string,symbol:string }, hre) {
+    const { ethers } = hre;
+    await hre.run('compile');
+    const WQdayFactrory = await ethers.getContractFactory('WQday');
+    const WQday = await WQdayFactrory.deploy(name, symbol);
+
+    console.log('WQday address is', WQday.address)
+  });
+
+/*
+npx hardhat deploy:no_governance --weth9 0x5FbDB2315678afecb367f032d93F642f64180aa3 --network qday
+*/  
 task(
   'deploy:no_governance',
   'Creates deployment without governance (eg. for use in rollup deployments)',

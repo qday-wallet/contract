@@ -30,3 +30,6 @@ storage-layouts
 
 # Temporary Files
 scripts/ephemeral
+
+# environment variables
+.env

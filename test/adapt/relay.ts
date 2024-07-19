@@ -66,12 +66,14 @@ describe('Adapt/Relay', () => {
     );
 
     // Deploy WETH9
-    const WETH9 = new ethers.ContractFactory(
-      weth9artifact.WETH9.abi,
-      weth9artifact.WETH9.bytecode,
-      (await ethers.getSigners())[0],
-    );
-    const weth9 = await WETH9.deploy();
+    // const WETH9 = new ethers.ContractFactory(
+    //   weth9artifact.WETH9.abi,
+    //   weth9artifact.WETH9.bytecode,
+    //   (await ethers.getSigners())[0],
+    // );
+
+    const WQdayFactrory = await ethers.getContractFactory('WQday');
+    const weth9 = await WQdayFactrory.deploy("wqday","wqday");
 
     // Deploy RelayAdapt
     const RelayAdapt = await ethers.getContractFactory('RelayAdapt');

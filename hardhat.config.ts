@@ -7,13 +7,23 @@ import 'hardhat-contract-sizer';
 import 'hardhat-gas-reporter';
 import 'solidity-coverage';
 import 'hardhat-local-networks-config-plugin';
+import * as dotenv from 'dotenv';
 
 import './tasks';
 
 import mocharc from './.mocharc.json';
 
+dotenv.config();
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
+  networks: {
+    qday: {
+      url: "http://192.168.1.235:8560",
+      accounts: [process.env.DA_PRIVATE_KEY || ""],
+      chainId: 51888,
+    },
+
+  },
   solidity: {
     compilers: [
       {
