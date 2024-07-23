@@ -2,6 +2,7 @@ import { task } from 'hardhat/config';
 
 import { loadAllArtifacts } from '../../helpers/logic/artifacts';
 import type { Contract } from 'ethers';
+import { log } from 'console';
 
 /**
  * Log data to verify contract
@@ -89,8 +90,10 @@ task(
     await logVerify('Treasury Proxy', treasuryProxy, [proxyAdmin.address]);
 
     // Deploy Proxy
-    const proxy = await Proxy.deploy(proxyAdmin.address);
-    await logVerify('Proxy', proxy, [proxyAdmin.address]);
+    const proxy = (await Proxy.deploy(proxyAdmin.address));
+    const receipt = await proxy.deployTransaction.wait();
+    console.log('railgunProxyDeployment Block height:', receipt.blockNumber);
+    await logVerify('railgun Proxy', proxy, [proxyAdmin.address]);
 
     // Deploy Implementation
     const implementation = await RailgunSmartWallet.deploy();
@@ -143,13 +146,14 @@ task(
       governorRewardsImplementation: '',
       governorRewardsProxy: '',
       implementation: implementation.address,
-      proxy: proxy.address,
+      railgunSmartWalletProxy: proxy.address, // need
+      railgunProxyDeploymentHeight:receipt.blockNumber, // need
       proxyAdmin: proxyAdmin.address,
       rail: '',
       staking: '',
       treasuryImplementation: treasuryImplementation.address,
       treasuryProxy: treasuryProxy.address,
       voting: '',
-      relayAdapt: relayAdapt.address,
+      relayAdapt: relayAdapt.address, // need
     });
   });
